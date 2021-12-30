@@ -1,6 +1,7 @@
 import { Loader } from "../components";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
+import { AiFillPlayCircle } from "react-icons/ai";
 
 const companyCommonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
@@ -32,6 +33,9 @@ const Input = ({
 );
 
 const Welcome: React.FC<WelcomeProps> = ({}) => {
+  const connectWallet = () => {};
+  const submitHandler = () => {};
+
   return (
     <div className='flex w-full justify-center items-center'>
       <div className='flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4'>
@@ -43,17 +47,15 @@ const Welcome: React.FC<WelcomeProps> = ({}) => {
             Explore the crypto world. Buy and sell cryptocurrencies easily on
             Krypto.
           </p>
-          {/* {!currentAccount && (
-            <button
-              type='button'
-              onClick={connectWallet}
-              className='flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]'>
-              <AiFillPlayCircle className='text-white mr-2' />
-              <p className='text-white text-base font-semibold'>
-                Connect Wallet
-              </p>
-            </button>
-          )} */}
+          {/* {!currentAccount && ( */}
+          <button
+            onClick={connectWallet}
+            type='button'
+            className='flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]'>
+            <AiFillPlayCircle className='text-white mr-2' />
+            <p className='text-white text-base font-semibold'>Connect Wallet</p>
+          </button>
+          {/* )} */}
           <div className='grid sm:grid-cols-3 grid-cols-2 w-full mt-10'>
             <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
               Reliability
@@ -122,7 +124,7 @@ const Welcome: React.FC<WelcomeProps> = ({}) => {
             ) : (
               <button
                 type='button'
-                // onClick={handleSubmit}
+                onClick={submitHandler}
                 className='text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer'>
                 Send now
               </button>
