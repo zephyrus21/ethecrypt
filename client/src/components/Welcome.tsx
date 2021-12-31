@@ -36,11 +36,8 @@ const Input = ({
 );
 
 const Welcome: React.FC<WelcomeProps> = ({}) => {
-  const { value } = useContext(TransactionContext);
+  const { connectWallet } = useContext(TransactionContext);
 
-  console.log(value);
-
-  const connectWallet = () => {};
   const submitHandler = () => {};
 
   return (
