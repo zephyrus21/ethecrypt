@@ -4,12 +4,20 @@ import { BsInfoCircle } from "react-icons/bs";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { shortenAddress } from "../utils/shortenAddress";
 import { TransactionContext } from "../context/TransactionContext";
-import { useContext } from "react";
+import React, { useContext } from "react";
 
 const companyCommonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 
 interface WelcomeProps {}
+
+interface formDataTypes {
+  addressTo: string;
+  amount: string;
+  keyword: string;
+  message: string;
+}
+
 interface InputProps {
   placeholder: string;
   value?: string;
@@ -36,9 +44,24 @@ const Input = ({
 );
 
 const Welcome: React.FC<WelcomeProps> = ({}) => {
-  const { connectWallet } = useContext(TransactionContext);
+  const {
+    connectWallet,
+    currentAccount,
+    formData,
+    setFormData,
+    handleChange,
+    sendTransaction,
+  } = useContext(TransactionContext);
 
-  const submitHandler = () => {};
+  const submitHandler = (e: any) => {
+    const { addressTo, amount, keyword, message } = formData as formDataTypes;
+
+    e.preventDefault();
+
+    if (!addressTo || !amount || !keyword || !message) return;
+
+    sendTransaction();
+  };
 
   return (
     <div className='flex w-full justify-center items-center'>
@@ -51,15 +74,17 @@ const Welcome: React.FC<WelcomeProps> = ({}) => {
             Explore the crypto world. Buy and sell cryptocurrencies easily on
             Krypto.
           </p>
-          {/* {!currentAccount && ( */}
-          <button
-            onClick={connectWallet}
-            type='button'
-            className='flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]'>
-            <AiFillPlayCircle className='text-white mr-2' />
-            <p className='text-white text-base font-semibold'>Connect Wallet</p>
-          </button>
-          {/* )} */}
+          {!currentAccount && (
+            <button
+              onClick={connectWallet}
+              type='button'
+              className='flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]'>
+              <AiFillPlayCircle className='text-white mr-2' />
+              <p className='text-white text-base font-semibold'>
+                Connect Wallet
+              </p>
+            </button>
+          )}
           <div className='grid sm:grid-cols-3 grid-cols-2 w-full mt-10'>
             <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
               Reliability
@@ -98,7 +123,7 @@ const Welcome: React.FC<WelcomeProps> = ({}) => {
             </div>
           </div>
           <div className='p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism'>
-            {/* <Input
+            <Input
               placeholder='Address To'
               name='addressTo'
               type='text'
@@ -121,7 +146,7 @@ const Welcome: React.FC<WelcomeProps> = ({}) => {
               name='message'
               type='text'
               handleChange={handleChange}
-            /> */}
+            />
             <div className='h-[1px] w-full bg-gray-400 my-2' />
             {false ? (
               <Loader />
